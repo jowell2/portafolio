@@ -4,27 +4,26 @@
   const ICONOS = {
     web: "&#127760;",
     desktop: "&#128421;",
-    creativo: "&#10024;"
+    cps: "&#9889;",
+    iot: "&#9992;"
   };
 
   const ETIQUETAS = {
     web: "Web",
     desktop: "Java Desktop",
-    creativo: "Creativo"
+    cps: "Ciberfísico",
+    iot: "IoT / Drones"
   };
 
   const NOMBRES_METRICA = {
     loc: "líneas",
     tablas: "tablas",
     paginas: "páginas",
-    archivos: "archivos"
+    componentes: "componentes",
+    diagramas: "diagramas"
   };
 
-  const esPendiente = (v) =>
-    !v ||
-    v.includes("TU_") ||
-    v.includes("TU_USUARIO") ||
-    v.includes("TU_CORREO");
+  const esPendiente = (v) => !v || v.includes("TU_");
 
   const el = (html) => {
     const t = document.createElement("template");
@@ -59,18 +58,14 @@
         <div class="card__top">
           <span class="card__icon">${ICONOS[p.categoria] || "&#128187;"}</span>
           <div class="card__flags">
-            <span class="chip-cat chip-cat--${p.categoria}">${
-      ETIQUETAS[p.categoria] || p.categoria
-    }</span>
-            <span class="card__year">${p.anio}</span>
+            <span class="chip-cat chip-cat--${p.categoria}">${ETIQUETAS[p.categoria] || p.categoria}</span>
+            <span class="card__year">${p.anio || ""}</span>
           </div>
         </div>
         <h3 class="card__title">${p.titulo}</h3>
         <p class="card__summary">${p.resumen}</p>
         <div class="card__metrics">${metrics}</div>
-        <div class="card__tags">${p.stack
-          .map((s) => `<span class="tag">${s}</span>`)
-          .join("")}</div>
+        <div class="card__tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
         <div class="card__detail">
           <div class="card__detail-inner">
             <p class="card__desc">${p.descripcion}</p>
@@ -98,7 +93,7 @@
   function renderProyectos() {
     const grid = document.getElementById("projectGrid");
     const ordenados = [...PROYECTOS].sort(
-      (a, b) => Number(b.destacado) - Number(a.destacado) || b.anio - a.anio
+      (a, b) => Number(Boolean(b.destacado)) - Number(Boolean(a.destacado))
     );
     ordenados.forEach((p) => grid.appendChild(tarjetaProyecto(p)));
   }
@@ -108,7 +103,7 @@
     FILTROS.forEach((f, i) => {
       const btn = el(`<button class="filter${
         i === 0 ? " is-active" : ""
-      }" type="button" data-f="${f.id}" role="tab" aria-selected="${i === 0}">${
+      }" type="button" data-f="${f.id}" aria-pressed="${i === 0}">${
         f.label
       }</button>`);
 
@@ -117,10 +112,10 @@
           .querySelectorAll(".filter")
           .forEach((b) => {
             b.classList.remove("is-active");
-            b.setAttribute("aria-selected", "false");
+            b.setAttribute("aria-pressed", "false");
           });
         btn.classList.add("is-active");
-        btn.setAttribute("aria-selected", "true");
+        btn.setAttribute("aria-pressed", "true");
 
         document.querySelectorAll(".card").forEach((card) => {
           const visible = f.id === "todos" || card.dataset.cat === f.id;
@@ -157,6 +152,9 @@
   function renderPerfil() {
     const GH = `https://github.com/${PERFIL.usuario}`;
 
+    document.getElementById("navName").textContent = PERFIL.nombreCorto;
+    document.getElementById("footName").textContent = PERFIL.nombre;
+
     const mail = document.getElementById("mailBtn");
     const mailText = document.getElementById("mailText");
     const mailPend = esPendiente(PERFIL.correo);
@@ -165,6 +163,18 @@
     mailText.textContent = mailPend ? "Configura tu correo" : PERFIL.correo;
     if (mailPend) mail.classList.replace("btn--primary", "btn--ghost");
 
+    const tel = PERFIL.telefono
+      ? PERFIL.telefono.replace(/[^0-9+]/g, "")
+      : "";
+    const phone = document.getElementById("phoneBtn");
+    const phoneText = document.getElementById("phoneText");
+    if (tel) {
+      phone.href = "tel:" + tel;
+      phoneText.textContent = PERFIL.telefono;
+    } else {
+      phone.remove();
+    }
+
     const gh = document.getElementById("ghBtn");
     const ghText = document.getElementById("ghText");
     gh.href = GH;
@@ -172,26 +182,31 @@
 
     const socials = document.getElementById("socials");
     const items = [
-      { k: "Universidad", v: PERFIL.universidad, href: null },
-      { k: "GitHub", v: "@" + PERFIL.usuario, href: GH },
-      {
-        k: "LinkedIn",
-        v: PERFIL.linkedin,
-        href: PERFIL.linkedin ? (PERFIL.linkedin.startsWith("http") ? PERFIL.linkedin : "https://" + PERFIL.linkedin) : null
-      }
+      { v: PERFIL.universidad },
+      { v: PERFIL.carrera },
+      { v: PERFIL.ubicacion }
     ];
+    if (tel) items.push({ v: PERFIL.telefono, href: "tel:" + tel, externo: false });
+    if (!mailPend) {
+      items.push({ v: PERFIL.correo, href: "mailto:" + PERFIL.correo, externo: false });
+    }
+    items.push({ v: "@" + PERFIL.usuario, href: GH });
+    if (PERFIL.linkedin) {
+      items.push({
+        v: "LinkedIn",
+        href: PERFIL.linkedin.startsWith("http")
+          ? PERFIL.linkedin
+          : "https://" + PERFIL.linkedin
+      });
+    }
     items.forEach((s) => {
-      if (s.href) {
-        socials.appendChild(
-          el(`<a class="social" href="${s.href}" target="_blank" rel="noopener">${s.v}</a>`)
-        );
-      } else if (s.v) {
+      if (!s.href) {
         socials.appendChild(el(`<span class="social">${s.v}</span>`));
+      } else if (s.externo === false) {
+        socials.appendChild(el(`<a class="social" href="${s.href}">${s.v}</a>`));
       } else {
         socials.appendChild(
-          el(
-            `<span class="social social--pending" title="Edita PERFIL.linkedin en js/data.js">LinkedIn: pendiente</span>`
-          )
+          el(`<a class="social" href="${s.href}" target="_blank" rel="noopener">${s.v}</a>`)
         );
       }
     });
@@ -283,6 +298,12 @@
       document.querySelectorAll("main section[id]")
     );
     const navLinks = Array.from(document.querySelectorAll(".nav__link"));
+    if (!("IntersectionObserver" in window)) {
+      navLinks.forEach((l) =>
+        l.classList.toggle("is-active", l.getAttribute("href") === "#inicio")
+      );
+      return;
+    }
     const spy = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {

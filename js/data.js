@@ -1,34 +1,117 @@
 const PERFIL = {
-  nombre: "Jowell Acosta",
-  titulo: "Desarrollador de software",
+  nombre: "Jowell Javier Acosta Castillo",
+  nombreCorto: "Jowell Acosta",
   usuario: "jowell2",
-  correo: "TU_CORREO@GMAIL.COM",
+  correo: "Jowelljavier@gmail.com",
+  telefono: "809-305-1381",
+  ubicacion: "Santo Domingo, República Dominicana",
   linkedin: "",
-  universidad: "UNACH — Universidad Autónoma del Estado de Chiapas",
-  resumen:
-    "Construyo aplicaciones de escritorio en Java, APIs y sistemas web en Node.js con SQLite."
+  universidad: "UNPHU — Universidad Nacional Pedro Henríquez Ureña",
+  carrera: "Ingeniería en Sistemas Computacionales"
 };
 
 const PROYECTOS = [
   {
+    id: "cps-monitoreo",
+    titulo: "Sistema de monitoreo CPS",
+    categoria: "cps",
+    destacado: true,
+    anio: "2025 / 2026",
+    resumen:
+      "Monitoreo con sensores en un Arduino Mega 2560: lectura, alerta por sobrecarga y control del sistema de agua con un botón.",
+    descripcion:
+      "El Arduino Mega 2560 lee los sensores y muestra el estado en el LCD. Cuando la lectura pasa del límite, el buzzer suena y los LEDs cambian. El joystick activa o desactiva la alerta de sobrecarga, y aparte hay un sistema de agua que se enciende y se apaga contando las pulsaciones de un botón. Todo se probó en simulación antes de armarlo en la mesa.",
+    highlights: [
+      "El Arduino Mega 2560 lee los sensores y el LCD muestra el estado",
+      "Alerta por sobrecarga con buzzer y LEDs",
+      "El joystick activa y desactiva la alerta",
+      "Sistema de agua con contador de pulsaciones",
+      "Módulo de botones para las otras interacciones",
+      "Simulación antes del montaje"
+    ],
+    stack: ["Arduino", "C++", "Sensores", "LCD", "Wokwi", "Tinkercad"],
+    metricas: { componentes: "6" }
+  },
+  {
+    id: "dron-tello",
+    titulo: "Control de dron DJI Tello",
+    categoria: "iot",
+    destacado: true,
+    anio: "2025 / 2026",
+    resumen:
+      "Una MKR WiFi 1010 controla un DJI Tello por WiFi, mandando comandos con UDP.",
+    descripcion:
+      "El Tello recibe los comandos por WiFi, y el punto del proyecto es justamente esa conexión. La MKR WiFi 1010 entra en la red del dron con WiFiNINA y manda los comandos con WiFiUDP; también se leen datos del estado del dron. Va con los diagramas de conexión y el código.",
+    highlights: [
+      "La placa se mete al WiFi del dron con WiFiNINA",
+      "Comandos enviados con WiFiUDP",
+      "Lectura del estado del dron",
+      "Diagramas de conexión incluidos"
+    ],
+    stack: ["Arduino", "MKR WiFi 1010", "WiFiNINA", "WiFiUDP", "UDP", "DJI Tello"],
+    metricas: { componentes: "2" }
+  },
+  {
+    id: "robot-basura",
+    titulo: "Robot recogedor de basura",
+    categoria: "cps",
+    destacado: true,
+    anio: "2025 / 2026",
+    resumen:
+      "Proyecto en equipo. El robot se modeló con una máquina de estados, un diagrama de secuencia UML y una Red de Petri, y se simuló en Wokwi con un ESP32.",
+    descripcion:
+      "Este fue en equipo. Antes de programar, el comportamiento del robot se dividió en tres modelos: una máquina de estados finitos con los modos en los que puede estar, un diagrama de secuencia con el orden de las interacciones, y una Red de Petri para la concurrencia. Con eso ya montado se simuló en Wokwi sobre un ESP32. Los sensores van a ThingSpeak y se ven en un dashboard con gráficos en tiempo real. Los reportes se generan solos y deciden por umbrales.",
+    highlights: [
+      "Máquina de estados finitos, diagrama de secuencia UML y Red de Petri",
+      "Simulación en Wokwi con un ESP32",
+      "Los sensores se mandan a ThingSpeak",
+      "Dashboard con gráficos en tiempo real",
+      "Reportes automáticos que deciden por umbrales",
+      "Proyecto en equipo"
+    ],
+    stack: ["ESP32", "Wokwi", "ThingSpeak", "UML", "Red de Petri"],
+    metricas: { diagramas: "3" }
+  },
+  {
+    id: "telefono-cps",
+    titulo: "Teléfono CPS propio",
+    categoria: "cps",
+    destacado: true,
+    anio: "2025 / 2026",
+    resumen:
+      "Un teléfono con un mecanismo propio, en vez de disco, DTMF o IP. Tiene voz, huella y un generador de frecuencia.",
+    descripcion:
+      "La idea era no repetir los mecanismos de siempre. En vez de disco, DTMF o IP, este teléfono usa otro: reconocimiento de voz, autenticación con huella y un generador de frecuencia para la señalización, más los actuadores. Se simuló en Wokwi con un ESP32, sensor HC-SR04, buzzer, LED y pantalla OLED SSD1306. El diseño quedó documentado con sus diagramas.",
+    highlights: [
+      "Mecanismo propio, sin disco, DTMF ni IP",
+      "Reconocimiento de voz y huella dactilar",
+      "Generador de frecuencia para la señal",
+      "Wokwi: ESP32, HC-SR04, buzzer, LED y OLED SSD1306",
+      "Diseño documentado con diagramas"
+    ],
+    stack: ["ESP32", "Wokwi", "OLED SSD1306", "HC-SR04", "C++"],
+    metricas: { componentes: "5" }
+  },
+  {
     id: "sgc",
     repo: "sgc",
-    titulo: "Sistema Gestor de Calificaciones",
+    titulo: "SGC — Sistema Gestor de Calificaciones Académicas",
     categoria: "web",
     destacado: true,
     anio: "2026",
     resumen:
-      "Sistema web completo de gestión de calificaciones universitarias: API REST, base de datos relacional y una interfaz SPA con tres roles.",
+      "Sistema web completo de gestión de calificaciones universitarias: API REST, base de datos relacional y una interfaz SPA con tres roles. Documentado formalmente con UML.",
     descripcion:
-      "El proyecto más completo que he hecho. Un sistema académico donde docentes registran notas, estudiantes consultan su boletín y coordinadores generan reportes estadísticos. El backend expone una API REST genérica que valida cada tabla contra el esquema real de SQLite antes de operar, y el frontend es una SPA en JavaScript puro que renderiza todo dinámicamente.",
+      "Un sistema académico donde docentes registran notas, estudiantes consultan su boletín y coordinadores generan reportes estadísticos. El backend expone una API REST genérica que valida cada tabla contra el esquema real de SQLite antes de operar, y el frontend es una SPA en JavaScript puro que renderiza todo dinámicamente. El proyecto se desarrolló en pareja y se documentó formalmente: entradas y salidas del sistema, requisitos funcionales y no funcionales, diagramas de casos de uso, diagramas de secuencia y modelo entidad-relación.",
     highlights: [
       "API REST en Node.js + Express con rutas genéricas validadas contra el esquema",
       "10 tablas SQLite en modo WAL con claves foráneas activas",
       "Bitácora de auditoría: cada cambio de nota queda registrado",
       "3 roles con menús distintos: administrador, docente y estudiante",
-      "Boletín, índice GPA ponderado por créditos y ~20 reportes"
+      "Boletín, índice GPA ponderado por créditos y ~20 reportes",
+      "Documentación formal: requisitos, casos de uso, secuencia y entidad-relación"
     ],
-    stack: ["Node.js", "Express", "SQLite", "JavaScript", "HTML5", "CSS3"],
+    stack: ["Node.js", "Express", "SQLite", "JavaScript", "HTML5", "CSS3", "UML"],
     metricas: { loc: "2,571", tablas: "10" }
   },
   {
@@ -137,14 +220,32 @@ const PROYECTOS = [
 ];
 
 const STACK = [
-  { grupo: "Lenguajes", items: ["Java", "JavaScript", "HTML5", "CSS3", "SQL"] },
-  { grupo: "Backend", items: ["Node.js", "Express", "REST API", "SQLite", "JDBC"] },
-  { grupo: "Frontend", items: ["JavaScript ES6", "CSS Grid", "Flexbox", "Vanilla JS"] },
-  { grupo: "Herramientas", items: ["Swing", "Graphics2D", "CardLayout", "Git"] }
+  {
+    grupo: "Lenguajes",
+    items: ["Java", "Python", "JavaScript", "Node.js", "SQL", "HTML5", "CSS3"]
+  },
+  {
+    grupo: "Desktop y backend",
+    items: ["Swing", "Graphics2D", "CardLayout", "JDBC", "Express", "REST API", "SQLite"]
+  },
+  {
+    grupo: "Hardware",
+    items: ["Arduino", "ESP32", "Arduino Mega 2560", "MKR WiFi 1010", "DJI Tello"]
+  },
+  {
+    grupo: "Simulación y diseño",
+    items: ["Wokwi", "Tinkercad", "Cirkit Designer", "ThingSpeak"]
+  },
+  {
+    grupo: "Herramientas",
+    items: ["Visual Studio Code", "Git", "GitHub", "UML", "Redes de Petri"]
+  }
 ];
 
 const FILTROS = [
   { id: "todos", label: "Todos" },
+  { id: "cps", label: "Ciberfísicos" },
+  { id: "iot", label: "IoT y drones" },
   { id: "web", label: "Web" },
   { id: "desktop", label: "Java Desktop" }
 ];

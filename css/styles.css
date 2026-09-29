@@ -531,7 +531,8 @@ strong { color: #fff; font-weight: 600; }
 }
 .chip-cat--web { color: #7ee7ff; background: rgba(0, 212, 255, 0.11); border-color: rgba(0, 212, 255, 0.3); }
 .chip-cat--desktop { color: #b9a8ff; background: rgba(124, 92, 255, 0.13); border-color: rgba(124, 92, 255, 0.32); }
-.chip-cat--creativo { color: #ff9ec4; background: rgba(255, 77, 148, 0.12); border-color: rgba(255, 77, 148, 0.3); }
+.chip-cat--cps { color: #ff9ec4; background: rgba(255, 77, 148, 0.12); border-color: rgba(255, 77, 148, 0.3); }
+.chip-cat--iot { color: #7dffb0; background: rgba(61, 219, 143, 0.12); border-color: rgba(61, 219, 143, 0.3); }
 .card__year { font-family: 'JetBrains Mono', monospace; font-size: 12px; color: var(--dim); }
 
 .card__title {
@@ -774,7 +775,6 @@ strong { color: #fff; font-weight: 600; }
   transition: all 0.28s var(--ease);
 }
 .social:hover { color: #fff; border-color: var(--border-hi); background: var(--surface-hi); transform: translateY(-2px); }
-.social--pending { border-style: dashed; opacity: 0.75; cursor: help; }
 
 /* ---------- Footer ---------- */
 .footer {
