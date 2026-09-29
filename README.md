@@ -22,8 +22,9 @@ HTML, CSS y JavaScript puro. Sin frameworks, sin bundler, sin build step y sin
 dependencias: el sitio se abre directamente desde el archivo.
 
 - **HTML5** semántico
-- **CSS3** con custom properties, Flexbox, Grid, `backdrop-filter` y animaciones
-- **JavaScript ES6** con `IntersectionObserver` para las animaciones al hacer scroll
+- **CSS3** con custom properties, Flexbox, Grid y una paleta cálida en tonos papel
+- **JavaScript ES6** sin librerías: render de las tarjetas, filtros y el menú móvil
+- Tipografías: Fraunces (títulos), Public Sans (texto) y JetBrains Mono (años y etiquetas)
 
 ## Estructura
 

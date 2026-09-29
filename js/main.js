@@ -1,13 +1,6 @@
 (function () {
   "use strict";
 
-  const ICONOS = {
-    web: "&#127760;",
-    desktop: "&#128421;",
-    cps: "&#9889;",
-    iot: "&#9992;"
-  };
-
   const ETIQUETAS = {
     web: "Web",
     desktop: "Java Desktop",
@@ -55,28 +48,27 @@
 
     const card = el(`
       <article class="card" data-cat="${p.categoria}">
-        <div class="card__top">
-          <span class="card__icon">${ICONOS[p.categoria] || "&#128187;"}</span>
-          <div class="card__flags">
-            <span class="chip-cat chip-cat--${p.categoria}">${ETIQUETAS[p.categoria] || p.categoria}</span>
-            <span class="card__year">${p.anio || ""}</span>
-          </div>
+        <div class="card__meta">
+          <span class="chip-cat chip-cat--${p.categoria}">${ETIQUETAS[p.categoria] || p.categoria}</span>
+          <span class="card__year">${p.anio || ""}</span>
         </div>
-        <h3 class="card__title">${p.titulo}</h3>
-        <p class="card__summary">${p.resumen}</p>
-        <div class="card__metrics">${metrics}</div>
-        <div class="card__tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
-        <div class="card__detail">
-          <div class="card__detail-inner">
-            <p class="card__desc">${p.descripcion}</p>
-            <ul class="card__hl">${highlights}</ul>
-            ${repo}
+        <div class="card__body">
+          <h3 class="card__title">${p.titulo}</h3>
+          <p class="card__summary">${p.resumen}</p>
+          <div class="card__metrics">${metrics}</div>
+          <div class="card__tags">${p.stack.map((s) => `<span class="tag">${s}</span>`).join("")}</div>
+          <div class="card__detail">
+            <div class="card__detail-inner">
+              <p class="card__desc">${p.descripcion}</p>
+              <ul class="card__hl">${highlights}</ul>
+              ${repo}
+            </div>
           </div>
+          <button class="card__toggle" type="button" aria-expanded="false">
+            <span>Ver detalle</span>
+            <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </button>
         </div>
-        <button class="card__toggle" type="button" aria-expanded="false">
-          <span>Ver detalle</span>
-          <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.4"><path d="m6 9 6 6 6-6" stroke-linecap="round" stroke-linejoin="round"/></svg>
-        </button>
       </article>
     `);
 
@@ -147,9 +139,7 @@
       `)
       );
     });
-  }
-
-  function renderPerfil() {
+  }  function renderPerfil() {
     const GH = `https://github.com/${PERFIL.usuario}`;
 
     document.getElementById("navName").textContent = PERFIL.nombreCorto;
@@ -182,94 +172,39 @@
 
     const socials = document.getElementById("socials");
     const items = [
-      { v: PERFIL.universidad },
-      { v: PERFIL.carrera },
-      { v: PERFIL.ubicacion }
+      { k: "Universidad", v: PERFIL.universidad },
+      { k: "Carrera", v: PERFIL.carrera },
+      { k: "Ubicación", v: PERFIL.ubicacion }
     ];
-    if (tel) items.push({ v: PERFIL.telefono, href: "tel:" + tel, externo: false });
-    if (!mailPend) {
-      items.push({ v: PERFIL.correo, href: "mailto:" + PERFIL.correo, externo: false });
+    if (tel) {
+      items.push({ k: "Teléfono", v: PERFIL.telefono, href: "tel:" + tel });
     }
-    items.push({ v: "@" + PERFIL.usuario, href: GH });
+    if (!mailPend) {
+      items.push({ k: "Correo", v: PERFIL.correo, href: "mailto:" + PERFIL.correo });
+    }
+    items.push({ k: "GitHub", v: "@" + PERFIL.usuario, href: GH });
     if (PERFIL.linkedin) {
       items.push({
-        v: "LinkedIn",
+        k: "LinkedIn",
+        v: PERFIL.linkedin,
         href: PERFIL.linkedin.startsWith("http")
           ? PERFIL.linkedin
           : "https://" + PERFIL.linkedin
       });
     }
     items.forEach((s) => {
-      if (!s.href) {
-        socials.appendChild(el(`<span class="social">${s.v}</span>`));
-      } else if (s.externo === false) {
-        socials.appendChild(el(`<a class="social" href="${s.href}">${s.v}</a>`));
-      } else {
-        socials.appendChild(
-          el(`<a class="social" href="${s.href}" target="_blank" rel="noopener">${s.v}</a>`)
-        );
-      }
+      socials.appendChild(
+        el(`
+        <div class="info">
+          <span class="info__k">${s.k}</span>
+          ${
+            s.href
+              ? `<a class="info__v" href="${s.href}"${/^https?:/.test(s.href) ? ' target="_blank" rel="noopener"' : ""}>${s.v}</a>`
+              : `<span class="info__v">${s.v}</span>`
+          }
+        </div>`)
+      );
     });
-  }
-
-  function initReveal() {
-    const items = document.querySelectorAll(".reveal");
-    if (!("IntersectionObserver" in window)) {
-      items.forEach((i) => i.classList.add("is-visible"));
-      return;
-    }
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          const siblings = Array.from(e.target.parentElement.children).filter(
-            (c) => c.classList.contains("reveal")
-          );
-          const i = siblings.indexOf(e.target);
-          e.target.style.transitionDelay = Math.min(i * 70, 420) + "ms";
-          e.target.classList.add("is-visible");
-          obs.unobserve(e.target);
-        });
-      },
-      { threshold: 0.12, rootMargin: "0px 0px -60px 0px" }
-    );
-    items.forEach((i) => obs.observe(i));
-  }
-
-  function initStats() {
-    const nums = document.querySelectorAll(".stat__num");
-    const suffix = (el_) => el_.dataset.suffix || "";
-    const dur = 1600;
-
-    const run = (node) => {
-      const target = parseInt(node.dataset.count, 10);
-      let start = null;
-      const step = (ts) => {
-        if (!start) start = ts;
-        const p = Math.min((ts - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        const val = Math.round(target * eased);
-        node.textContent = val.toLocaleString("es-ES") + suffix(node);
-        if (p < 1) requestAnimationFrame(step);
-      };
-      requestAnimationFrame(step);
-    };
-
-    if (!("IntersectionObserver" in window)) {
-      nums.forEach(run);
-      return;
-    }
-    const obs = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((e) => {
-          if (!e.isIntersecting) return;
-          run(e.target);
-          obs.unobserve(e.target);
-        });
-      },
-      { threshold: 0.5 }
-    );
-    nums.forEach((n) => obs.observe(n));
   }
 
   function initNav() {
@@ -327,7 +262,5 @@
   renderFiltros();
   renderStack();
   renderPerfil();
-  initReveal();
-  initStats();
   initNav();
 })();
