@@ -6,7 +6,6 @@ const PERFIL = {
   telefono: "809-305-1381",
   ubicacion: "Santo Domingo, República Dominicana",
   linkedin: "",
-  universidad: "UNPHU — Universidad Nacional Pedro Henríquez Ureña",
   carrera: "Ingeniería en Sistemas Computacionales"
 };
 

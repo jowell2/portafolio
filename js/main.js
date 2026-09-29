@@ -179,7 +179,6 @@
 
     const socials = document.getElementById("socials");
     const items = [
-      { k: "Universidad", v: PERFIL.universidad },
       { k: "Carrera", v: PERFIL.carrera },
       { k: "Ubicación", v: PERFIL.ubicacion }
     ];

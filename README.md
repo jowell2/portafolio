@@ -1,7 +1,7 @@
 # Portafolio
 
 Sitio web personal con los proyectos que he hecho en la carrera de Ingeniería en
-Sistemas Computacionales (UNPHU): programas de escritorio en Java, sistemas web,
+Sistemas Computacionales: programas de escritorio en Java, sistemas web,
 sistemas ciberfísicos, IoT y hardware.
 
 ## Ver en vivo
@@ -39,7 +39,7 @@ portafolio/
 
 Todo el contenido editable está en `js/data.js`:
 
-- `PERFIL` — nombre, usuario de GitHub, correo, teléfono, ubicación y universidad
+- `PERFIL` — nombre, usuario de GitHub, correo, teléfono, ubicación y carrera
 - `PROYECTOS` — agregar un objeto por proyecto
 - `STACK` — grupos de tecnologías
 - `FILTROS` — botones de filtrado; cada `id` debe coincidir con la `categoria` de
