@@ -1,0 +1,10 @@
+# Sistema operativo y editores
+.DS_Store
+Thumbs.db
+.idea/
+*.iml
+.vscode/
+
+# Este archivo se genera solo si el sitio se instala dependencias en el futuro
+node_modules/
+package-lock.json
