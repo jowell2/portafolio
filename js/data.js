@@ -16,7 +16,7 @@ const PROYECTOS = [
     titulo: "Sistema de monitoreo CPS",
     categoria: "cps",
     destacado: true,
-    anio: "2025 / 2026",
+    anio: "2026",
     resumen:
       "Monitoreo con sensores en un Arduino Mega 2560: lectura, alerta por sobrecarga y control del sistema de agua con un botón.",
     descripcion:
@@ -37,7 +37,7 @@ const PROYECTOS = [
     titulo: "Control de dron DJI Tello",
     categoria: "iot",
     destacado: true,
-    anio: "2025 / 2026",
+    anio: "2026",
     resumen:
       "Una MKR WiFi 1010 controla un DJI Tello por WiFi, mandando comandos con UDP.",
     descripcion:
@@ -56,7 +56,7 @@ const PROYECTOS = [
     titulo: "Robot recogedor de basura",
     categoria: "cps",
     destacado: true,
-    anio: "2025 / 2026",
+    anio: "2026",
     resumen:
       "Proyecto en equipo. El robot se modeló con una máquina de estados, un diagrama de secuencia UML y una Red de Petri, y se simuló en Wokwi con un ESP32.",
     descripcion:
@@ -77,7 +77,7 @@ const PROYECTOS = [
     titulo: "Teléfono CPS propio",
     categoria: "cps",
     destacado: true,
-    anio: "2025 / 2026",
+    anio: "2026",
     resumen:
       "Un teléfono con un mecanismo propio, en vez de disco, DTMF o IP. Tiene voz, huella y un generador de frecuencia.",
     descripcion:
