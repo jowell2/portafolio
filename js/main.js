@@ -173,7 +173,6 @@
     const socials = document.getElementById("socials");
     const items = [
       { k: "Universidad", v: PERFIL.universidad, href: null },
-      { k: "Matrícula", v: PERFIL.matricula, href: null },
       { k: "GitHub", v: "@" + PERFIL.usuario, href: GH },
       {
         k: "LinkedIn",

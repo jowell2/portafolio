@@ -5,7 +5,6 @@ const PERFIL = {
   correo: "TU_CORREO@GMAIL.COM",
   linkedin: "",
   universidad: "UNACH — Universidad Autónoma del Estado de Chiapas",
-  matricula: "24-1268",
   resumen:
     "Construyo aplicaciones de escritorio en Java, APIs y sistemas web en Node.js con SQLite."
 };
