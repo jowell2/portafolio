@@ -147,11 +147,18 @@
 
     const mail = document.getElementById("mailBtn");
     const mailText = document.getElementById("mailText");
+    const mailBig = document.getElementById("mailBig");
     const mailPend = esPendiente(PERFIL.correo);
 
-    mail.href = mailPend ? "#contacto" : `mailto:${PERFIL.correo}`;
-    mailText.textContent = mailPend ? "Configura tu correo" : PERFIL.correo;
-    if (mailPend) mail.classList.replace("btn--primary", "btn--ghost");
+    if (mailPend) {
+      mail.remove();
+      mailBig.textContent = "Correo por configurar";
+    } else {
+      mail.href = "mailto:" + PERFIL.correo;
+      mailText.textContent = "Escríbeme";
+      mailBig.href = "mailto:" + PERFIL.correo;
+      mailBig.textContent = PERFIL.correo;
+    }
 
     const tel = PERFIL.telefono
       ? PERFIL.telefono.replace(/[^0-9+]/g, "")
@@ -160,7 +167,7 @@
     const phoneText = document.getElementById("phoneText");
     if (tel) {
       phone.href = "tel:" + tel;
-      phoneText.textContent = PERFIL.telefono;
+      phoneText.textContent = "Llámame";
     } else {
       phone.remove();
     }
