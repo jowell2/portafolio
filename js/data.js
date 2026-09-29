@@ -97,26 +97,6 @@ const PROYECTOS = [
     metricas: { loc: "218" }
   },
   {
-    id: "calculadora",
-    repo: "calculadora",
-    titulo: "Calculadora",
-    categoria: "desktop",
-    anio: "2025",
-    resumen:
-      "Calculadora de cuatro operaciones con menú interactivo y protección contra división entre cero.",
-    descripcion:
-      "Un ejercicio de estructuras de control: menú en bucle, switch, funciones auxiliares y validación de entrada. Lo interesante no es la calculadora en sí, sino el manejo cuidadoso de los casos borde: entrada no numérica, división entre cero y —el que más se olvida— que el usuario cierre el diálogo con la X en lugar de escribir algo.",
-    highlights: [
-      "Funciones auxiliares separadas por responsabilidad con prefijo fnc_",
-      "Protección contra división entre cero que repregunta en bucle",
-      "Manejo explícito del caso en que el usuario cierra la ventana",
-      "Resultados formateados a dos decimales con String.format",
-      "Sin dependencias: compila con el JDK pelado"
-    ],
-    stack: ["Java", "Swing"],
-    metricas: { loc: "96" }
-  },
-  {
     id: "formulario",
     repo: "formulario",
     titulo: "Formulario de Estudiante",
